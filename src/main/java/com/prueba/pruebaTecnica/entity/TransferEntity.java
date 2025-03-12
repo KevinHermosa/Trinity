@@ -1,8 +1,13 @@
 package com.prueba.pruebaTecnica.entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @Entity
 public class TransferEntity {
 
@@ -16,9 +21,8 @@ public class TransferEntity {
     @Column (nullable = false)
     private double amount;
 
-    @Temporal (TemporalType.TIMESTAMP)
     @Column (nullable = false, updatable = false)
-    private Date transferDate;
+    public LocalDateTime transferDate;
 
     @ManyToOne
     @JoinColumn (name = "Account_origen_id")
@@ -32,8 +36,7 @@ public class TransferEntity {
 
     @PrePersist
     protected void onCreate() {
-        this.transferDate = new date();
-
+        this.transferDate =  LocalDateTime.now();
     }
 
 }
